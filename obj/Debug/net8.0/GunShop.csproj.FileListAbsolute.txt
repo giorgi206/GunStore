@@ -135,3 +135,5 @@
 /Users/giorgi/Projects/GunShop/GunShop/obj/Debug/net8.0/GunShop.pdb
 /Users/giorgi/Projects/GunShop/GunShop/obj/Debug/net8.0/GunShop.genruntimeconfig.cache
 /Users/giorgi/Projects/GunShop/GunShop/obj/Debug/net8.0/ref/GunShop.dll
+/Users/giorgi/Projects/GunShop/GunShop/obj/Debug/net8.0/GunShop.sourcelink.json
+/Users/giorgi/Projects/GunShop/GunShop/bin/Debug/net8.0/BCrypt.Net-Next.dll

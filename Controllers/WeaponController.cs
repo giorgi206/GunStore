@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using GunShop.Data;
 using GunShop.DTOs.Weapons;
+using GunShop.Models;
+using GunShop.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,24 +16,32 @@ namespace GunShop.Controllers
     [Route("api/[controller]")]
     public class WeaponController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
-        public WeaponController(ApplicationDbContext dbContext)
+        private readonly IWeaponService _weaponService;
+
+        public WeaponController(IWeaponService weaponService)
         {
-            _dbContext = dbContext;
+            _weaponService = weaponService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<WeaponDto>>> GetWeaponList()
+        public async Task<IActionResult> GetWeaponList()
         {
-            var weapons = await _dbContext.Weapons.ToListAsync();
-            if(weapons == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(weapons);
-            }
+            var weapons = await _weaponService.GetAllAsync();
+            return Ok(weapons);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateWeaponProduct(WeaponCreateDto dto)
+        {
+            var weapon = await _weaponService.CreateAsync(dto);
+            return Ok(weapon);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateWeapon(int id, WeaponUpdateDto dto)
+        {
+            var weapon = await _weaponService.UpdateAsync(id, dto);
+            return Ok(weapon);
         }
     }
 }

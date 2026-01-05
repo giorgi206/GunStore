@@ -9,6 +9,7 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
@@ -29,6 +30,7 @@
     <None Remove="DTOs\Categories\" />
     <None Remove="DTOs\Orders\" />
     <None Remove="Controllers\" />
+    <None Remove="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -40,5 +42,6 @@
     <Folder Include="DTOs\Categories\" />
     <Folder Include="DTOs\Orders\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 </Project>

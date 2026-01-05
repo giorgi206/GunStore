@@ -1,4 +1,6 @@
 ﻿using GunShop.Data;
+using GunShop.Services;
+using GunShop.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+//services
+builder.Services.AddScoped<IWeaponService, WeaponService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

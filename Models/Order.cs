@@ -1,4 +1,6 @@
 ﻿using System;
+using GunShop.DTOs.Users;
+
 namespace GunShop.Models
 {
 	public class Order
