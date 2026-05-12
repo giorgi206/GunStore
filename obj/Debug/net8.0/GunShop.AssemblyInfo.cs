@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GunShop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+540ebc3b00455e2eef1c708888cf085f7068c929")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f7a16d254f223e88a740f78b3c71ae81ff8e2cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("GunShop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GunShop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -16,7 +16,8 @@ builder.Services.AddScoped<IWeaponService, WeaponService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-
+builder.Services.AddScoped<IKnifeService, KnifeService>();
+builder.Services.AddScoped<IAmmunitionService, AmmunitionService>();
 
 
 builder.Services.AddControllers();

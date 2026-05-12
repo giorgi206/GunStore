@@ -4,6 +4,7 @@ using GunShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GunShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260512171220_AddKnifeAndAmmunition")]
+    partial class AddKnifeAndAmmunition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,49 +24,6 @@ namespace GunShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GunShop.Models.Ammunition", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Caliber")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Ammunitions");
-                });
 
             modelBuilder.Entity("GunShop.Models.Category", b =>
                 {
@@ -81,47 +41,6 @@ namespace GunShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("GunShop.Models.Knife", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("BladeLength")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("BladeMaterial")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Stock")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Knives");
                 });
 
             modelBuilder.Entity("GunShop.Models.Order", b =>
@@ -156,12 +75,6 @@ namespace GunShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AmmunitionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KnifeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -175,10 +88,6 @@ namespace GunShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AmmunitionId");
-
-                    b.HasIndex("KnifeId");
 
                     b.HasIndex("OrderId");
 
@@ -259,28 +168,6 @@ namespace GunShop.Migrations
                     b.ToTable("Weapons");
                 });
 
-            modelBuilder.Entity("GunShop.Models.Ammunition", b =>
-                {
-                    b.HasOne("GunShop.Models.Category", "Category")
-                        .WithMany("Ammunitions")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("GunShop.Models.Knife", b =>
-                {
-                    b.HasOne("GunShop.Models.Category", "Category")
-                        .WithMany("Knives")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("GunShop.Models.Order", b =>
                 {
                     b.HasOne("GunShop.Models.User", "User")
@@ -294,14 +181,6 @@ namespace GunShop.Migrations
 
             modelBuilder.Entity("GunShop.Models.OrderItem", b =>
                 {
-                    b.HasOne("GunShop.Models.Ammunition", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("AmmunitionId");
-
-                    b.HasOne("GunShop.Models.Knife", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("KnifeId");
-
                     b.HasOne("GunShop.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
@@ -330,23 +209,9 @@ namespace GunShop.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("GunShop.Models.Ammunition", b =>
-                {
-                    b.Navigation("OrderItems");
-                });
-
             modelBuilder.Entity("GunShop.Models.Category", b =>
                 {
-                    b.Navigation("Ammunitions");
-
-                    b.Navigation("Knives");
-
                     b.Navigation("Weapons");
-                });
-
-            modelBuilder.Entity("GunShop.Models.Knife", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("GunShop.Models.Order", b =>

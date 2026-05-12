@@ -5,11 +5,10 @@ namespace GunShop.Models
 	{
         public int Id { get; set; }
 
-        // FK → Order
+     
         public int OrderId { get; set; }
         public Order Order { get; set; }
 
-        // FK → Weapon
         public int WeaponId { get; set; }
         public Weapon Weapon { get; set; }
 

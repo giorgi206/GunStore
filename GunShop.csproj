@@ -31,6 +31,8 @@
     <None Remove="DTOs\Orders\" />
     <None Remove="Controllers\" />
     <None Remove="Services\Interfaces\" />
+    <None Remove="DTOs\Knifes\" />
+    <None Remove="DTOs\Ammunition\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -43,5 +45,7 @@
     <Folder Include="DTOs\Orders\" />
     <Folder Include="Controllers\" />
     <Folder Include="Services\Interfaces\" />
+    <Folder Include="DTOs\Knifes\" />
+    <Folder Include="DTOs\Ammunition\" />
   </ItemGroup>
 </Project>

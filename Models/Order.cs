@@ -7,7 +7,7 @@ namespace GunShop.Models
 	{
         public int Id { get; set; }
 
-        // FK → User
+        
         public int UserId { get; set; }
         public User User { get; set; }
 
