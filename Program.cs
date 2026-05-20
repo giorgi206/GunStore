@@ -1,5 +1,4 @@
-﻿// ── პაკეტები ──────────────────────────────────
-using GunShop.Data;
+﻿using GunShop.Data;
 using GunShop.Services;
 using GunShop.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,34 +18,16 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IKnifeService, KnifeService>();
 builder.Services.AddScoped<IAmmunitionService, AmmunitionService>();
 
-// ── CORS ── ახალი ─────────────────────────────
-
+// ── CORS ──────────────────────────────────────
 builder.Services.AddCors(options =>
-
 {
-
     options.AddPolicy("AllowFrontend", policy =>
-
     {
-
-        policy.WithOrigins(
-
-                "http://localhost:3000",   // React CRA
-
-                "http://localhost:5173",   // Vite / React
-
-                "http://localhost:4200"    // Angular
-
-              )
-
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
-
               .AllowAnyMethod();
-
     });
-
 });
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -61,11 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseCors("AllowFrontend"); // ← UseAuthorization()-ის წინ!ახალი
-
-
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

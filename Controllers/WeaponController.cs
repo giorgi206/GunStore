@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GunShop.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class WeaponController : ControllerBase
     {
@@ -24,12 +25,17 @@ namespace GunShop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetWeaponList()
+        public async Task<IActionResult> GetWeaponList([FromQuery] int? categoryId)
         {
-            var weapons = await _weaponService.GetAllAsync();
+            var weapons = await _weaponService.GetAllAsync(categoryId);
             return Ok(weapons);
         }
-
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetWeaponById(int id)
+        {
+            var weapon = await _weaponService.GetByIdAsync(id);
+            return Ok(weapon);
+        }
         [HttpPost]
         public async Task<IActionResult> CreateWeaponProduct(WeaponCreateDto dto)
         {

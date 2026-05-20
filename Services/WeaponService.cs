@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GunShop.Services
 {
-	public class WeaponService : IWeaponService
-	{
+    public class WeaponService : IWeaponService
+    {
         private readonly ApplicationDbContext _context;
 
         public WeaponService(ApplicationDbContext context)
@@ -16,9 +16,10 @@ namespace GunShop.Services
             _context = context;
         }
 
-        public async Task<List<WeaponDto>> GetAllAsync()
+        public async Task<List<WeaponDto>> GetAllAsync(int? categoryId = null)
         {
             return await _context.Weapons
+                .Where(w => categoryId == null || w.CategoryId == categoryId)
                 .Select(w => new WeaponDto
                 {
                     Id = w.Id,
@@ -33,15 +34,30 @@ namespace GunShop.Services
                 .ToListAsync();
         }
 
+        public async Task<WeaponDto> GetByIdAsync(int id)
+        {
+            var weapon = await _context.Weapons.FindAsync(id);
+            if (weapon == null) throw new Exception("Weapon not found");
+            return new WeaponDto
+            {
+                Id = weapon.Id,
+                Name = weapon.Name,
+                Manufacturer = weapon.Manufacturer,
+                Caliber = weapon.Caliber,
+                Price = weapon.Price,
+                Stock = weapon.Stock,
+                ImageUrl = weapon.ImageUrl,
+                CategoryId = weapon.CategoryId
+            };
+        }
+
         public async Task<WeaponDto> CreateAsync(WeaponCreateDto dto)
         {
             var categoryExists = await _context.Categories
                 .AnyAsync(c => c.Id == dto.CategoryId);
-
             if (!categoryExists)
-            {
                 throw new Exception($"Category with Id {dto.CategoryId} does not exist.");
-            }
+
             var weapon = new Weapon
             {
                 Name = dto.Name,
@@ -52,10 +68,8 @@ namespace GunShop.Services
                 ImageUrl = dto.ImageUrl,
                 CategoryId = dto.CategoryId
             };
-
             _context.Weapons.Add(weapon);
             await _context.SaveChangesAsync();
-
             return new WeaponDto
             {
                 Id = weapon.Id,
@@ -72,10 +86,8 @@ namespace GunShop.Services
         public async Task<WeaponDto> UpdateAsync(int id, WeaponUpdateDto dto)
         {
             var weapon = await _context.Weapons.FindAsync(id);
-            if (weapon == null)
-            {
-                throw new Exception("Weapon not found");
-            }
+            if (weapon == null) throw new Exception("Weapon not found");
+
             weapon.Name = dto.Name;
             weapon.Manufacturer = dto.Manufacturer;
             weapon.Caliber = dto.Caliber;
@@ -83,9 +95,7 @@ namespace GunShop.Services
             weapon.Stock = dto.Stock;
             weapon.ImageUrl = dto.ImageUrl;
             weapon.CategoryId = dto.CategoryId;
-
             await _context.SaveChangesAsync();
-
             return new WeaponDto
             {
                 Id = weapon.Id,
@@ -100,4 +110,3 @@ namespace GunShop.Services
         }
     }
 }
-
