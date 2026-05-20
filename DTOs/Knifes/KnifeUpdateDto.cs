@@ -1,9 +1,9 @@
-﻿using System;
-namespace GunShop.DTOs.Knifes
+﻿namespace GunShop.DTOs.Knifes
 {
-	public class KnifeUpdateDto
-	{
+    public class KnifeUpdateDto
+    {
         public string Name { get; set; }
+        public string BladeType { get; set; }      // ✅ დამატებული
         public string BladeMaterial { get; set; }
         public decimal BladeLength { get; set; }
         public decimal Price { get; set; }
@@ -12,4 +12,3 @@ namespace GunShop.DTOs.Knifes
         public int CategoryId { get; set; }
     }
 }
-

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using GunShop.DTOs.Knifes;
+using GunShop.Services;
 using GunShop.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +42,19 @@ namespace GunShop.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
+        // ეს არის ის მეთოდი, რომელიც დაგეხმარებათ მასიურად ატვირთვაში
+        [HttpPost("bulk")]
+        public async Task<IActionResult> CreateBulk([FromBody] IEnumerable<KnifeCreateDto> dtos)
+        {
+            if (dtos == null || !dtos.Any())
+            {
+                return BadRequest("მონაცემების მასივი ცარიელია.");
+            }
+
+            var results = await _knifeService.CreateRangeAsync(dtos);
+            return Ok(results);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] KnifeUpdateDto dto)
         {
@@ -55,4 +72,3 @@ namespace GunShop.Controllers
         }
     }
 }
-

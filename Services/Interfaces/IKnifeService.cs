@@ -1,15 +1,16 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GunShop.DTOs.Knifes;
 
 namespace GunShop.Services.Interfaces
 {
-	public interface IKnifeService
-	{
+    public interface IKnifeService
+    {
         Task<IEnumerable<KnifeDto>> GetAllAsync();
         Task<KnifeDto?> GetByIdAsync(int id);
         Task<KnifeDto> CreateAsync(KnifeCreateDto dto);
+        Task<IEnumerable<KnifeDto>> CreateRangeAsync(IEnumerable<KnifeCreateDto> dtos); // ახალი მეთოდი
         Task<KnifeDto?> UpdateAsync(int id, KnifeUpdateDto dto);
         Task<bool> DeleteAsync(int id);
     }
 }
-
